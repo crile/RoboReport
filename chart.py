@@ -70,8 +70,13 @@ def create_chart(overall_result,tag_results =''):
         tag_list.append(key)
 
     for tags in tag_list:
-        passed_values.append(tag_results[tags]['pass'])
-        failed_values.append(tag_results[tags]['fail'])
+        if 'pass' in tag_results[tags] and 'fail' in tag_results[tags]:
+            passed_values.append(tag_results[tags]['pass'])
+            failed_values.append(tag_results[tags]['fail'])
+        else:
+            passed_values.append(0)
+            failed_values.append(0)
+            print('tag "{0}" has no associated results'.format(tags))
 
     trace1 = go.Bar(
         x=tag_list,
